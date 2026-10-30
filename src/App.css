@@ -1,0 +1,288 @@
+:root {
+  --bg: #ffffff;
+  --panel: #f6f7f9;
+  --text: #1f2328;
+  --muted: #656d76;
+  --border: #d8dde3;
+  --accent: #1a73e8;
+  --accent-text: #ffffff;
+  --error: #c62828;
+  --error-bg: #fdecea;
+  --today: rgba(26, 115, 232, 0.08);
+
+  /* FullCalendar classic theme, mapped onto the app's tokens */
+  --fc-classic-primary: var(--accent);
+  --fc-classic-primary-foreground: var(--accent-text);
+  --fc-classic-button: var(--panel);
+  --fc-classic-button-border: var(--border);
+  --fc-classic-button-strong: var(--accent);
+  --fc-classic-button-strong-border: var(--accent);
+  --fc-classic-button-foreground: var(--text);
+  --fc-classic-background: var(--bg);
+  --fc-classic-foreground: var(--text);
+  --fc-classic-muted-foreground: var(--muted);
+  --fc-classic-border: var(--border);
+  --fc-classic-today: var(--today);
+
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg);
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b1d21;
+    --panel: #24272c;
+    --text: #e6e8eb;
+    --muted: #9aa1a9;
+    --border: #353a41;
+    --accent: #8ab4f8;
+    --accent-text: #1b1d21;
+    --error: #ff8a80;
+    --error-bg: #3b2222;
+    --today: rgba(138, 180, 248, 0.1);
+    --fc-classic-faint: #ffffff0a;
+    --fc-classic-muted: #ffffff14;
+    --fc-classic-strong: #ffffff24;
+    --fc-classic-faint-foreground: #4b5563;
+    --fc-classic-strong-border: #4b5563;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+button.link {
+  background: none;
+  border: none;
+  color: var(--muted);
+  padding: 0;
+  text-align: left;
+}
+button.link:hover {
+  color: var(--text);
+}
+button.icon {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 0 0.3rem;
+  color: var(--muted);
+}
+
+.muted {
+  color: var(--muted);
+}
+.small {
+  font-size: 0.85rem;
+}
+.error {
+  color: var(--error);
+}
+
+.center {
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.login-card {
+  text-align: center;
+  max-width: 340px;
+  padding: 2rem;
+}
+.login-card h1 {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+.login-card button {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.layout {
+  display: flex;
+  height: 100%;
+}
+.sidebar {
+  width: 230px;
+  flex-shrink: 0;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.sidebar h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin: 0 0 0.25rem;
+}
+.cal-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+.cal-list label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0;
+  cursor: pointer;
+}
+.cal-list input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+.cal-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bg-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Custom background picture: the image fills the window, panels become frosted glass. */
+.has-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* Only backgrounds are see-through (via color-mix); text and events stay fully opaque. */
+.has-bg {
+  --fc-classic-background: transparent;
+}
+.has-bg .sidebar,
+.has-bg .login-card {
+  background: color-mix(in srgb, var(--panel) 55%, transparent);
+  backdrop-filter: blur(6px);
+}
+.has-bg .sidebar {
+  border-right-color: transparent;
+}
+.has-bg .calendar-wrap {
+  background: color-mix(in srgb, var(--bg) 40%, transparent);
+  backdrop-filter: blur(3px);
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+.has-bg .login-card {
+  border-radius: 12px;
+}
+/* The "+N more" popover floats over events, so it keeps a solid background. */
+.has-bg .solid-popover {
+  background: var(--bg);
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.5rem;
+}
+.banner {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  background: var(--error-bg);
+  cursor: pointer;
+}
+.calendar-wrap {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+.calendar-wrap.is-loading {
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: grid;
+  place-items: center;
+  z-index: 100;
+}
+.modal {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  width: min(480px, calc(100vw - 2rem));
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.modal-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.modal-head h3 {
+  flex: 1;
+  margin: 0;
+  font-size: 1.15rem;
+}
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.modal p {
+  margin: 0.5rem 0;
+}
+.description {
+  white-space: pre-wrap;
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+}
+.modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
